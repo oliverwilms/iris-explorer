@@ -6,7 +6,8 @@ Do ##class(Security.Users).UnExpireUserPasswords("*")
 zn "USER"
 ;zpm "load /opt/irisbuild/ -v":1:1
 set file = "/opt/irisbuild/swagger/phoneapp/phoneapp.objectscript.xml"
-do $SYSTEM.OBJ.Load(file)
+do $SYSTEM.OBJ.Load(file,"ck")
+do ##class(demo.phones.phone).CreateData()
 do ^%REST
 "name"
 Y
