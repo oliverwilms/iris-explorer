@@ -5,6 +5,8 @@ Do ##class(Security.Users).UnExpireUserPasswords("*")
 
 zn "USER"
 ;zpm "load /opt/irisbuild/ -v":1:1
+set file = "/opt/irisbuild/swagger/phoneapp/phoneapp.objectscript.xml"
+do $SYSTEM.OBJ.Load(file)
 do ^%REST
 "name"
 Y
