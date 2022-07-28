@@ -9,12 +9,19 @@ services:
 #      - 80:80
 #      - 8000:80
   iris:
+    build: 
+      context: .
+      dockerfile: ./iris/Dockerfile
+    command: --check-caps false
+    restart: always
     hostname: localhost
 #    image: store/intersystems/iris-community:2019.4.0.383.0
-    image: intersystemsdc/iris-community:latest
+#    image: intersystemsdc/iris-community:latest
     container_name: iris-explorer_iris
     volumes:
 #      - ${PWD}/shared/:/shared
       - ./shared/:/shared
     ports:
+      - 19800:1972
+      - 53773:53773
       - 57700:52773
