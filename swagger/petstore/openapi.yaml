@@ -6,6 +6,8 @@ info:
     name: Apache-2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
+servers:
+  - url: https://data-0-1-web-helm-valip-dev-iris.apps.vapo-aws-valip-dev.va.gov/csp
 externalDocs:
   description: Find out more about OpenAPI generator
   url: https://openapi-generator.tech
@@ -38,6 +40,8 @@ components:
     MO:
       title: Miscellaneous Obligation
       type: object
+      required:
+        - transactionNumber
       properties:
         sourceSystem:
           type: string
