@@ -1,194 +1,203 @@
 openapi: 3.0.0
 info:
-  title: OpenAPI Oliver
-  description: This is a sample server Oliver server. For this sample, you can use the api key `special-key` to test the authorization filters. For OAuth2 flow, you may use `user` as both username and password when asked to login.
-  license:
-    name: Apache-2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.0
+    title: OpenAPI Oliver
+    version: 1.0.0
+    description: >-
+        This is a sample server Oliver server. For this sample, you can use the api key `special-key` to test
+        the authorization filters. For OAuth2 flow, you may use `user` as both username and password when
+        asked to login.
+    license:
+        name: Apache-2.0
+        url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 servers:
-  - url: https://data-0-1-web-helm-valip-dev-iris.apps.vapo-aws-valip-dev.va.gov/csp
-externalDocs:
-  description: Find out more about OpenAPI generator
-  url: https://openapi-generator.tech
-tags:
-- name: mo
-  description: Miscellaneous Obligation
+    -
+        url: 'https://data-0-1-web-helm-valip-dev-iris.apps.vapo-aws-valip-dev.va.gov/csp'
+        description: description
+    -
+        url: server.com
+        description: Server description
 paths:
-  /mo:
-    post:
-      tags:
-      - mo
-      summary: miscellaneous order (or obligation) document
-      operationId: addPet
-      requestBody:
-        $ref: '#/components/requestBodies/MO'
-      responses:
-        405:
-          description: Invalid input
-      security:
-      - petstore_auth:
-        - write:pets
-        - read:pets
-      x-accepts: application/json
-      x-tags:
-      - tag: mo
-      x-contentType: application/json
-  
+    /mo:
+        post:
+            requestBody:
+                $ref: '#/components/requestBodies/MO'
+            tags:
+                - mo
+            responses:
+                '405':
+                    description: Invalid input
+            security:
+                -
+                    petstore_auth:
+                        - 'write:pets'
+                        - 'read:pets'
+            operationId: addPet
+            summary: miscellaneous order (or obligation) document
+            x-accepts: application/json
+            x-tags:
+                -
+                    tag: mo
+            x-contentType: application/json
 components:
-  schemas:
-    MO:
-      title: Miscellaneous Obligation
-      type: object
-      required:
-        - sourceSystem
-        - destinationSystem
-        - submittingStation
-        - transactionClass
-        - transactionCode
-        - sec1Code
-        - transactionNumber
-      properties:
-        sourceSystem:
-          type: string
-          minLength: 3
-          maxLength: 3
-          example: DML
-        destinationSystem:
-          type: string
-          minLength: 3
-          maxLength: 3
-          example: FMS
-        submittingStation:
-          type: string
-          minLength: 3
-          maxLength: 3
-          example: 556
-        transactionClass:
-          type: string
-          minLength: 3
-          maxLength: 3
-          example: DOC
-        transactionCode:
-          type: string
-          minLength: 2
-          maxLength: 2
-          example: MO
-        sec1Code:
-          type: string
-          minLength: 1
-          maxLength: 4
-          example: 10  
-        batchNumber:
-          type: string
-          example: 09C556
-        transactionNumber:
-          type: string
-          example: 5564B0901 
-        transactionDate:
-          type: string
-          example: 20231209
-        transactionTime:
-          type: string
-          example: 070001
-        sequenceNumber:
-          type: string
-          example: 001 
-        sequenceTotal:
-          type: string
-          example: 001 
-        version:
-          type: string
-          example: 001 
-
- 
-        quantity:
-          type: integer
-          format: int32
-        shipDate:
-          type: string
-          format: date-time
-        transactionType:
-          type: string
-          description: HDR Trans Type
-          enum:
-          - Original
-          - Modification
-          - Cancelation
-        fundCode:
-          type: string
-          example: 0169N1
-        costOrganization:
-          type: string
-          example: 746300
-        costSubOrg:
-          type: string
-          example: 00
-        xprogram:
-          type: string
-          example: 0700DML02
-        budgetObjectCode:
-          type: string
-          example: 2638
-        lineAmount:
-          type: string
-          example: 102.15
-        lineAction:
-          type: string
-          example: D
-
-        complete:
-          type: boolean
-          default: false
-      description: A miscellaneous order (or obligation) document
-      example:
-        sourceSystem: DML
-        destinationSystem: FMS
-        submittingStation: 556
-        transactionClass: DOC
-        transactionCode: MO
-        sec1Code: 10  
-        batchNumber: 09C556
-        transactionNumber: 5564B0901 
-        transactionDate: 20231209
-        transactionTime: 070001
-        sequenceNumber: 001
-        sequenceTotal: 001
-        version: 001
-        transactionType: Modification
-        fundCode: 0169N1
-        costOrganization: 746300
-        costSubOrg: 00
-        xprogram: 0700DML02
-        budgetObjectCode: 2638
-        lineAmount: 102.15
-        lineAction: D
-        shipDate: 2000-01-23T04:56:07.000+00:00
-        complete: false
-        status: placed
-      xml:
-        name: Order
-  requestBodies:
-    MO:
-      description: Obligation messages are comprised of segments grouped together into associated sub-segments.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/MO'
-        application/xml:
-          schema:
-            $ref: '#/components/schemas/MO'
-      required: true
-  securitySchemes:
-    petstore_auth:
-      type: oauth2
-      flows:
-        implicit:
-          authorizationUrl: /api/oauth/dialog
-          scopes:
-            write:pets: modify pets in your account
-            read:pets: read your pets
-    api_key:
-      type: apiKey
-      name: api_key
-      in: header
+    schemas:
+        MO:
+            title: Miscellaneous Obligation
+            description: A miscellaneous order (or obligation) document
+            required:
+                - sourceSystem
+                - destinationSystem
+                - submittingStation
+                - transactionClass
+                - transactionCode
+                - sec1Code
+                - transactionNumber
+            type: object
+            properties:
+                sourceSystem:
+                    maxLength: 3
+                    minLength: 3
+                    type: string
+                    example: DML
+                destinationSystem:
+                    maxLength: 3
+                    minLength: 3
+                    type: string
+                    example: FMS
+                submittingStation:
+                    maxLength: 3
+                    minLength: 3
+                    type: string
+                    example: 556
+                transactionClass:
+                    maxLength: 3
+                    minLength: 3
+                    type: string
+                    example: DOC
+                transactionCode:
+                    maxLength: 2
+                    minLength: 2
+                    type: string
+                    example: MO
+                sec1Code:
+                    maxLength: 4
+                    minLength: 1
+                    type: string
+                    example: 10
+                batchNumber:
+                    type: string
+                    example: 09C556
+                transactionNumber:
+                    type: string
+                    example: 5564B0901
+                transactionDate:
+                    type: string
+                    example: 20231209
+                transactionTime:
+                    type: string
+                    example: 28673
+                sequenceNumber:
+                    type: string
+                    example: 1
+                sequenceTotal:
+                    type: string
+                    example: 1
+                version:
+                    type: string
+                    example: 1
+                quantity:
+                    format: int32
+                    type: integer
+                shipDate:
+                    format: date-time
+                    type: string
+                transactionType:
+                    description: HDR Trans Type
+                    enum:
+                        - Original
+                        - Modification
+                        - Cancelation
+                    type: string
+                fundCode:
+                    type: string
+                    example: 0169N1
+                costOrganization:
+                    type: string
+                    example: 746300
+                costSubOrg:
+                    type: string
+                    example: 0
+                xprogram:
+                    type: string
+                    example: 0700DML02
+                budgetObjectCode:
+                    type: string
+                    example: 2638
+                lineAmount:
+                    type: string
+                    example: 102.15
+                lineAction:
+                    type: string
+                    example: D
+                complete:
+                    default: false
+                    type: boolean
+            xml:
+                name: Order
+            example:
+                sourceSystem: DML
+                destinationSystem: FMS
+                submittingStation: 556
+                transactionClass: DOC
+                transactionCode: MO
+                sec1Code: 10
+                batchNumber: 09C556
+                transactionNumber: 5564B0901
+                transactionDate: 20231209
+                transactionTime: 28673
+                sequenceNumber: 1
+                sequenceTotal: 1
+                version: 1
+                transactionType: Modification
+                fundCode: 0169N1
+                costOrganization: 746300
+                costSubOrg: 0
+                xprogram: 0700DML02
+                budgetObjectCode: 2638
+                lineAmount: 102.15
+                lineAction: D
+                shipDate: '2000-01-23T04:56:07.000+00:00'
+                complete: false
+                status: placed
+    requestBodies:
+        MO:
+            description: Obligation messages are comprised of segments grouped together into associated sub-segments.
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/components/schemas/MO'
+                application/xml:
+                    schema:
+                        $ref: '#/components/schemas/MO'
+            required: true
+    securitySchemes:
+        petstore_auth:
+            flows:
+                implicit:
+                    authorizationUrl: /api/oauth/dialog
+                    scopes:
+                        'write:pets': modify pets in your account
+                        'read:pets': read your pets
+            type: oauth2
+            description: description
+        api_key:
+            type: apiKey
+            description: description
+            name: api_key
+            in: header
+tags:
+    -
+        name: mo
+        description: Miscellaneous Obligation
+externalDocs:
+    description: Find out more about OpenAPI generator
+    url: 'https://openapi-generator.tech'
