@@ -1,0 +1,160 @@
+swagger: '2.0'
+info:
+  version: '1.0.0'
+  title: OpenAPI Oliver
+  description: This is a sample server Oliver server. For this sample, you can use the api key `special-key` to test the authorization filters. For OAuth2 flow, you may use `user` as both username and password when asked to login.
+  contact: {}
+host: data-0-1-web-helm-valip-dev-iris.apps.vapo-aws-valip-dev.va.gov
+basePath: /csp
+securityDefinitions:
+  petstore_auth:
+    type: oauth2
+    flow: implicit
+    authorizationUrl: https://data-0-1-web-helm-valip-dev-iris.apps.vapo-aws-valip-dev.va.gov/csp/api/oauth/dialog
+    scopes:
+      write:pets: modify pets in your account
+      read:pets: read your pets
+  api_key:
+    type: apiKey
+    name: api_key
+    in: header
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  /mo:
+    post:
+      description: ''
+      summary: addPet
+      tags:
+      - mo
+      operationId: addPet
+      deprecated: false
+      produces:
+      - application/json
+      consumes:
+      - application/json
+      parameters:
+      - name: Content-Type
+        in: header
+        required: false
+        enum:
+        - application/json
+        type: string
+        description: ''
+      - name: body
+        in: body
+        required: true
+        description: Obligation messages are comprised of segments grouped together into associated sub-segments.
+        schema:
+          $ref: '#/definitions/MiscellaneousObligation'
+      responses:
+        '405':
+          description: Invalid input
+          headers: {}
+      security:
+      - petstore_auth:
+        - write:pets
+        - read:pets
+definitions:
+  MiscellaneousObligation:
+    title: MiscellaneousObligation
+    description: A miscellaneous order (or obligation) document
+    xml:
+      name: Order
+      attribute: false
+      wrapped: false
+    type: object
+    properties:
+      sourceSystem:
+        type: string
+        minLength: 3
+        maxLength: 3
+      destinationSystem:
+        type: string
+        minLength: 3
+        maxLength: 3
+      submittingStation:
+        type: string
+        minLength: 3
+        maxLength: 3
+      transactionClass:
+        type: string
+        minLength: 3
+        maxLength: 3
+      transactionCode:
+        type: string
+        minLength: 2
+        maxLength: 2
+      sec1Code:
+        type: string
+        minLength: 1
+        maxLength: 4
+      batchNumber:
+        type: string
+      transactionNumber:
+        type: string
+      transactionDate:
+        type: string
+      transactionTime:
+        type: string
+      sequenceNumber:
+        type: string
+      sequenceTotal:
+        type: string
+      version:
+        type: string
+      quantity:
+        type: integer
+        format: int32
+      shipDate:
+        type: string
+        format: date-time
+      transactionType:
+        type: object
+        allOf:
+        - $ref: '#/definitions/TransactionType'
+        - description: HDR Trans Type
+      fundCode:
+        type: string
+      costOrganization:
+        type: string
+      costSubOrg:
+        type: string
+      xprogram:
+        type: string
+      budgetObjectCode:
+        type: string
+      lineAmount:
+        type: string
+      lineAction:
+        type: string
+      complete:
+        type: boolean
+        default: false
+    required:
+    - sourceSystem
+    - destinationSystem
+    - submittingStation
+    - transactionClass
+    - transactionCode
+    - sec1Code
+    - transactionNumber
+  TransactionType:
+    title: TransactionType
+    description: HDR Trans Type
+    type: string
+    enum:
+    - Original
+    - Modification
+    - Cancelation
+security: []
+tags:
+- name: mo
+  description: Miscellaneous Obligation
+externalDocs:
+  url: https://openapi-generator.tech
+  description: Find out more about OpenAPI generator
